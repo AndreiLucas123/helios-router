@@ -1,0 +1,51 @@
+{
+  "name": "helios-router",
+  "version": "0.1.0",
+  "author": "Simple Organization",
+  "scripts": {
+    "build": "tsc && rollup -c",
+    "dev": "rollup -c -w",
+    "preview": "vite preview",
+    "test": "pnpm playwright test",
+    "test:ui": "pnpm playwright test --ui",
+    "tsc:watch": "tsc --watch --incremental"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.22.10",
+    "@playwright/test": "^1.37.0",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "babel-preset-solid": "^1.7.7",
+    "esbuild": "0.19.2",
+    "estree-walker": "^3.0.3",
+    "magic-string": "^0.30.2",
+    "prettier": "2.8.8",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-dts": "^5.3.1",
+    "rollup-plugin-esbuild": "^5.0.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-serve": "^2.0.2",
+    "rollup-plugin-svelte": "^7.1.6",
+    "solid-js": "^1.7.11",
+    "svelte": "^4.2.0",
+    "tslib": "^2.6.1",
+    "typescript": "^5.1.6"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./svelte-actions": {
+      "types": "./dist/svelte-actions.d.ts",
+      "default": "./src/svelte/svelte-actions.ts"
+    },
+    "./AppFrameSvelte.svelte": {
+      "default": "./AppFrameSvelte.svelte"
+    }
+  },
+  "private": true,
+  "type": "module",
+  "types": "dist/index.d.ts"
+}
