@@ -8,6 +8,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import serve from 'rollup-plugin-serve';
 import { babel } from '@rollup/plugin-babel';
 import { hoistImportDeps } from './plugins/hoist-import-deps.js';
+import rollupPluginPreserveJsx from './plugins/rollup-plugin-preserve-jsx.js';
+import renameChunkPlugin from './plugins/rollup-plugin-rename-chunk.mjs';
 
 //
 //
@@ -25,11 +27,23 @@ const addons = [];
 if (!__DEV__) {
   //
   //  Add the typescript definition file build
-  addons.push({
-    input: './dist-test/index.d.ts',
-    output: { file: 'dist/index.d.ts', format: 'es' },
-    plugins: [dts()],
-  });
+  addons.push(
+    {
+      input: './dist-test/index.d.ts',
+      output: { file: 'dist/index.d.ts', format: 'es' },
+      plugins: [dts()],
+    },
+    {
+      input: './dist-test/svelte/svelte-actions.d.ts',
+      output: { file: 'dist/svelte-actions.d.ts', format: 'es' },
+      plugins: [dts()],
+    },
+    {
+      input: './dist-test/solid/solid.d.ts',
+      output: { file: 'dist/solid.d.ts', format: 'es' },
+      plugins: [dts()],
+    },
+  );
 } else {
   //
   //  Add the build for the fixture
@@ -45,18 +59,23 @@ if (!__DEV__) {
 
       // Imports the svelte
       commonjs(),
-      nodeResolve({ preferBuiltins: true,jsnext: true, exportConditions: ["solid", "node"] }),
+      nodeResolve({
+        preferBuiltins: true,
+        jsnext: true,
+        // exportConditions: ['solid', 'node'],
+      }),
       hoistImportDeps(),
 
       // Svelte and styles
       svelte(),
+      postcss(),
+
       // For solid
       babel({
-        extensions: ['.tsx'],
+        extensions: ['.jsx', '.tsx'],
         babelHelpers: 'bundled',
         presets: ['solid'],
       }),
-      postcss(),
 
       // Serve and livereload
       serve({
@@ -74,7 +93,7 @@ export default [
   {
     input: [
       './src/index.ts',
-      './src/svelte/svelte.ts',
+      './src/svelte/svelte-actions.ts',
       './src/solid/solid.tsx',
     ],
     output: {
@@ -82,9 +101,9 @@ export default [
       format: 'es',
       sourcemap: false,
       manualChunks(id) {
-        if (id.includes('minor-projects')) {
-          if (id.includes('svelte')) {
-            return 'svelte';
+        if (id.includes('src')) {
+          if (id.includes('svelte-actions')) {
+            return 'svelte-actions';
           }
 
           if (id.includes('solid')) {
@@ -99,7 +118,6 @@ export default [
       assetFileNames: `[name].[ext]`,
     },
     external: [
-      'fast-deep-equal',
       'svelte',
       'svelte/internal',
       'svelte/internal/disclose-version',
@@ -115,12 +133,17 @@ export default [
         sourceMap: false,
         minify: false,
       }),
-      babel({
-        extensions: ['.tsx'],
-        babelHelpers: 'bundled',
-        presets: [['solid', { generate: 'ssr', hydratable: true }]],
-      }),
+      // babel({
+      //   extensions: ['.tsx'],
+      //   babelHelpers: 'bundled',
+      //   presets: [['solid', { generate: 'ssr', hydratable: true }]],
+      // }),
       svelte(),
+      rollupPluginPreserveJsx(),
+      renameChunkPlugin({
+        oldName: 'solid.js',
+        newName: 'solid.jsx',
+      })
     ],
   },
   ...addons,

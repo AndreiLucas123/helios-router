@@ -1,8 +1,14 @@
 import { walk } from 'estree-walker';
 import MagicString from 'magic-string';
 
+//
+//
+
 const VIRTUAL_ID_IMPORT = 'preloaddeps:import';
 const MARKER = '"__IMPORT_DEPS__"';
+
+//
+//
 
 function canonicalize(path) {
   // Remove leading and trailing '/' from basePath.

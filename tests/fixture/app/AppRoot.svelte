@@ -1,5 +1,5 @@
 <script>
-  import { AppFrame } from '../../../dist/svelte';
+  import AppFrame from '../../../AppFrameSvelte.svelte';
 </script>
 
 <AppFrame id="root" />

@@ -1,5 +1,6 @@
 <script>
-  import { pushLink, AppFrame } from '../../../dist/svelte';
+  import { pushLink } from '../../../dist/svelte-actions';
+  import AppFrame from '../../../AppFrameSvelte.svelte';
 
   console.log('Main Layout being mounted');
 </script>

@@ -16,11 +16,14 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-node-resolve": "^15.1.0",
+    "acorn-jsx": "^5.3.2",
     "babel-preset-solid": "^1.7.7",
     "esbuild": "0.19.2",
     "estree-walker": "^3.0.3",
     "magic-string": "^0.30.2",
-    "prettier": "2.8.8",
+    "prettier": "3.0.2",
+    "prettier-plugin-svelte": "^3.0.3",
+    "rollup": "^3.28.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-dts": "^5.3.1",
     "rollup-plugin-esbuild": "^5.0.0",
@@ -35,16 +38,24 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     },
     "./svelte-actions": {
       "types": "./dist/svelte-actions.d.ts",
-      "default": "./src/svelte/svelte-actions.ts"
+      "default": "./dist/svelte-actions.js"
     },
     "./AppFrameSvelte.svelte": {
       "default": "./AppFrameSvelte.svelte"
+    },
+    "./solid": {
+      "types": "./dist/solid.d.ts",
+      "default": "./dist/solid.jsx"
     }
   },
+  "files": [
+    "dist",
+    "AppFrameSvelte.svelte"
+  ],
   "private": true,
   "type": "module",
   "types": "dist/index.d.ts"

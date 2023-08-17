@@ -1,7 +1,7 @@
 <script>
   import { pageProps } from '../../../../../dist';
-  import { AppFrame } from '../../../../../dist/svelte';
-  import { clientLoader } from './page';
+  import AppFrame from '../../../../../AppFrameSvelte.svelte';
+  import { clientLoader } from './client-id.page';
 
   console.log('Client being mounted', $clientLoader.data);
 </script>

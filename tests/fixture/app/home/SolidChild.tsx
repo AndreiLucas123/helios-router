@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { AppFrameSolid } from '../../../../dist/solid';
 import { render } from 'solid-js/web';
 

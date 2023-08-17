@@ -1,5 +1,5 @@
 <script>
-  import { clientChildLoader } from './page';
+  import { clientChildLoader } from './client-id.page';
 
   console.log('Client being mounted', $clientChildLoader.data);
 
