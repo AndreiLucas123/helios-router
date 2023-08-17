@@ -1,49 +1,18 @@
-import { basename } from 'node:path';
+import type { RoutesPluginOptions } from './types';
 import { writeFile } from 'node:fs/promises';
 import { dollarFileMatchPattern } from './dollarFileMatchPattern';
+import { relative } from 'node:path';
+import { sortRoutes } from './sortRoutes';
 import chokidar from 'chokidar';
 
 //
 //
 
-export type RoutesPluginOptions = {
-  /**
-   * Diretório onde estão os arquivos de rotas.
-   * @default 'src/app/\**\/*.page.ts'
-   */
-  pagesGlob?: string;
-  /**
-   * Arquivo de saída.
-   * @default 'src/routes.ts'
-   */
-  outputFile?: string;
-  /**
-   * Função necessária para remover a extensão do arquivo da rota
-   * @default (basename) => name.replace(/\.page.ts$/, '')
-   */
-  normalize?: (basename: string) => string;
-  /**
-   * Base URL para as rotas
-   * @default '/'
-   */
-  baseUrl?: string;
-  /**
-   * Convert file name to route
-   *
-   * @example
-   * from `src/app/home/home.page.ts` to `/home`
-   * or from `src/app/$id/client.page.ts` to `/:id`
-   */
-  fileMatchPattern?: (baseUrl: string, file: string) => string;
-};
-
-//
-//
-
-type FileWatched = {
-  name: string;
+export type FileWatched = {
   path: string;
+  importPath: string;
   route: string;
+  segments: string[];
 };
 
 //
@@ -59,13 +28,15 @@ export default function routesWatcher(options?: RoutesPluginOptions): {
   let timeout: any = null;
 
   const opts = options || {};
-  opts.pagesGlob = opts.pagesGlob || 'src/app/**/*.page.ts';
-  opts.outputFile = opts.outputFile || 'src/routes.ts';
-  opts.normalize =
-    opts.normalize ||
-    ((name) => name.replace(/\\/g, '/').replace(/\/\w+\.page.ts$/, ''));
+  opts.routesFolder = opts.routesFolder?.replace(/\\/g, '/') || 'src/app';
+  opts.pagesGlob = opts.routesFolder + (opts.pagesGlob || '/**/*.page.ts');
   opts.baseUrl = opts.baseUrl || '/';
-  opts.fileMatchPattern = opts.fileMatchPattern || dollarFileMatchPattern;
+  opts.patternMatcher = opts.patternMatcher || dollarFileMatchPattern;
+
+  opts.relative = relative(process.cwd(), opts.routesFolder!).replace(
+    /\\/g,
+    '/',
+  );
 
   //
   //
@@ -78,29 +49,14 @@ export default function routesWatcher(options?: RoutesPluginOptions): {
   //
   //
 
-  function descSort() {
-    filesWatched = filesWatched.sort((a, b) => {
-      const aRoute = a.route;
-      const bRoute = b.route;
-      if (aRoute < bRoute) return 1;
-      if (aRoute > bRoute) return -1;
-      return 0;
-    });
-  }
-
-  //
-  //
-
   async function generateOutput() {
-    descSort();
+    filesWatched = sortRoutes(filesWatched);
 
-    let output = `import type { RoutesConfigImports } from 'helios-router';
-
-let routes: RoutesConfigImports = {`;
+    let output = `let routes = {`;
 
     for (const file of filesWatched) {
       output += `
-  '${file.route}': () => import('${file.path}'),`;
+  '${file.route}': () => import('${file.importPath}'),`;
     }
 
     output += `
@@ -115,7 +71,7 @@ export default routes;
 
     fileOutput = output;
 
-    await writeFile(opts.outputFile!, output, 'utf-8');
+    await writeFile(opts.routesFolder! + '/routes.ts', output, 'utf-8');
     console.log('routes-plugin: successfully generated routes.ts');
   }
 
@@ -123,14 +79,16 @@ export default routes;
   //
 
   async function add(path: string) {
-    const _basename = basename(path);
-
     queueOutput();
 
+    path = path.replace(/\\/g, '/');
+    const segments = opts.patternMatcher!.splitSegments!(opts, path);
+
     filesWatched.push({
-      name: opts.normalize!(_basename),
       path,
-      route: opts.fileMatchPattern!(opts.baseUrl!, opts.normalize!(path)),
+      importPath: opts.patternMatcher!.fixImportPath!(opts, path),
+      route: '/' + segments.join('/'),
+      segments,
     });
   }
 

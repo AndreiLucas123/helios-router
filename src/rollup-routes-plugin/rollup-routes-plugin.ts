@@ -1,5 +1,6 @@
 import type { Plugin } from 'rollup';
-import routesWatcher, { type RoutesPluginOptions } from './routes-watcher';
+import { RoutesPluginOptions } from './types';
+import routesWatcher from './routes-watcher';
 
 //
 //
@@ -29,6 +30,3 @@ export default function routesPlugin(options?: RoutesPluginOptions): Plugin {
     },
   };
 }
-
-export { type RoutesPluginOptions, routesWatcher };
-export * from './dollarFileMatchPattern';

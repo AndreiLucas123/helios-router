@@ -14,7 +14,7 @@ if (!__DEV__) {
   //
   //  Add the typescript definition file build
   addons.push({
-    input: './dist-test/types/src/rollup-routes-plugin/rollup-routes-plugin.d.ts',
+    input: './dist-test/types/src/rollup-routes-plugin/index.d.ts',
     output: { file: 'dist/rollup-routes-plugin.d.ts', format: 'es' },
     plugins: [dts()],
   });
@@ -25,7 +25,7 @@ if (!__DEV__) {
 
 export default [
   {
-    input: './src/rollup-routes-plugin/rollup-routes-plugin.ts',
+    input: './src/rollup-routes-plugin/index.ts',
     output: { file: 'dist/rollup-routes-plugin.js', format: 'es' },
     external: ['node:path', 'node:fs/promises', 'chokidar'],
     plugins: [

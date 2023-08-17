@@ -50,13 +50,18 @@
     "./solid": {
       "types": "./dist/solid.d.ts",
       "default": "./dist/solid.jsx"
+    },
+    "./rollup-routes-plugin": {
+      "types": "./dist/rollup-routes-plugin.d.ts",
+      "default": "./dist/rollup-routes-plugin.js"
     }
   },
   "files": [
     "dist",
     "AppFrameSvelte.svelte",
     "svelte-actions.d.ts",
-    "solid.d.ts"
+    "solid.d.ts",
+    "rollup-routes-plugin.d.ts"
   ],
   "type": "module",
   "types": "dist/index.d.ts"
