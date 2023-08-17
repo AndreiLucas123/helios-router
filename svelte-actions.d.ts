@@ -1,1 +1,1 @@
-export * from './src/svelte/svelte-actions';
+export * from './dist/svelte-actions';

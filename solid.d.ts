@@ -1,1 +1,1 @@
-export * from './src/solid/solid';
+export * from './dist/solid';
