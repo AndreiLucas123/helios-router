@@ -24,41 +24,31 @@ function canonicalize(path) {
 //
 //
 
+/**
+ * Copied and changed from [rollup-plugin-hoist-import-deps](https://github.com/vikerman/rollup-plugin-hoist-import-deps)
+ *
+ * Differences:
+ * - Removed the `amd` option.
+ * - Only supports import() and will not use preload or modulepreload.
+ * @param {object} options
+ * @param {string} options.baseUrl
+ * @returns {import('rollup').Plugin}
+ */
 export function hoistImportDeps(options) {
   options = options || {};
-  options.method = options.method != null ? options.method : 'preload';
-  options.setAnonymousCrossOrigin =
-    options.setAnonymousCrossOrigin != null
-      ? options.anononymousCrossOrigin
-      : true;
   options.baseUrl =
     typeof options.baseUrl === 'string' ? canonicalize(options.baseUrl) : null;
 
   // Get the static deps of a chunk and return them as list of strings
   // that can be passed as arguments to module preload method(__loadeDeps).
-  const getDeps = (chunkName, bundle) => {
+  const getDeps = (chunkName, caller, bundle) => {
     let name = chunkName.startsWith('./') ? chunkName.substring(2) : chunkName;
-
-    // AMD specifies dynamic imports without .js extension.
-    // So add .js while looking up and remove .js while writing the import chunk name.
-    let amd = false;
-    if (!name.endsWith('.js')) {
-      amd = true;
-      name += '.js';
-    }
 
     const chunk = bundle[name];
     if (chunk && chunk.imports.length > 0) {
       const ret = chunk.imports
-        // remove the .js extension if it's AMD and using dynamic import method.
-        .map(
-          (s) =>
-            `"./${
-              amd && options.method === 'import'
-                ? s.substring(0, s.length - 3)
-                : s
-            }"`,
-        )
+        .filter((s) => s !== caller)
+        .map((s) => `"./${s}"`)
         .join(',');
       return ret;
     } else {
@@ -76,7 +66,11 @@ export function hoistImportDeps(options) {
       return null;
     },
 
-    // Add a virtual module for preloading dependencies.
+    /**
+     * Add a virtual module for preloading dependencies.
+     * @param {string} id
+     * @returns {string | null}
+     */
     load(id) {
       if (id === VIRTUAL_ID_IMPORT) {
         // Use link preload for deps and dynamic import for baseImport.
@@ -239,7 +233,7 @@ export function __loadDeps(baseImport, ...deps) {
                 magicString.overwrite(
                   node.start,
                   node.end,
-                  getDeps(importChunkName, bundle),
+                  getDeps(importChunkName, chunkName, bundle),
                 );
               }
             }
