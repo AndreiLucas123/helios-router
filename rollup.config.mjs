@@ -1,15 +1,8 @@
 import esbuild from 'rollup-plugin-esbuild';
 import dts from 'rollup-plugin-dts';
-import svelte from 'rollup-plugin-svelte';
-import del from 'rollup-plugin-delete';
-import postcss from 'rollup-plugin-postcss';
-import nodeResolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import serve from 'rollup-plugin-serve';
-import { babel } from '@rollup/plugin-babel';
-import { hoistImportDeps } from './plugins/hoist-import-deps.js';
 import rollupPluginPreserveJsx from './plugins/rollup-plugin-preserve-jsx.js';
 import renameChunkPlugin from './plugins/rollup-plugin-rename-chunk.mjs';
+import tests from './rollup.test.config.mjs';
 
 //
 //
@@ -19,7 +12,7 @@ const __DEV__ = !!process.env.ROLLUP_WATCH;
 //
 //
 
-const addons = [];
+const addons = [...tests];
 
 //
 //
@@ -44,46 +37,6 @@ if (!__DEV__) {
       plugins: [dts()],
     },
   );
-} else {
-  //
-  //  Add the build for the fixture
-  addons.push({
-    input: './tests/fixture/main.ts',
-    output: { dir: 'dist-test/fixture', format: 'es' },
-    plugins: [
-      del({ targets: 'dist-test/fixture/*' }),
-      esbuild({
-        sourceMap: false,
-        minify: false,
-      }),
-
-      // Imports the svelte
-      commonjs(),
-      nodeResolve({
-        preferBuiltins: true,
-        jsnext: true,
-        // exportConditions: ['solid', 'node'],
-      }),
-      hoistImportDeps(),
-
-      // Svelte and styles
-      svelte(),
-      postcss(),
-
-      // For solid
-      babel({
-        extensions: ['.jsx', '.tsx'],
-        babelHelpers: 'bundled',
-        presets: ['solid'],
-      }),
-
-      // Serve and livereload
-      serve({
-        port: 3039,
-        historyApiFallback: true,
-      }),
-    ],
-  });
 }
 
 //
@@ -138,12 +91,11 @@ export default [
       //   babelHelpers: 'bundled',
       //   presets: [['solid', { generate: 'ssr', hydratable: true }]],
       // }),
-      svelte(),
       rollupPluginPreserveJsx(),
       renameChunkPlugin({
         oldName: 'solid.js',
         newName: 'solid.jsx',
-      })
+      }),
     ],
   },
   ...addons,
