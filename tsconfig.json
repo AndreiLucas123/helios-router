@@ -25,5 +25,6 @@
     "fixtures/**/*.ts",
     "fixtures/**/*.tsx",
     "fixtures/**/*.svelte"
-  ]
+  ],
+  "exclude": ["fixtures/rollup-routes-plugin/routes.ts"]
 }

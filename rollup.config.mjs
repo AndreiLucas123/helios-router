@@ -2,7 +2,8 @@ import esbuild from 'rollup-plugin-esbuild';
 import dts from 'rollup-plugin-dts';
 import rollupPluginPreserveJsx from './plugins/rollup-plugin-preserve-jsx.js';
 import renameChunkPlugin from './plugins/rollup-plugin-rename-chunk.mjs';
-import tests from './rollup.test.config.mjs';
+import tests from './rollup.fixtures.config.mjs';
+import plugins from './rollup.plugins.config.mjs';
 
 //
 //
@@ -12,7 +13,7 @@ const __DEV__ = !!process.env.ROLLUP_WATCH;
 //
 //
 
-const addons = [...tests];
+const addons = [...plugins, ...tests];
 
 //
 //
@@ -22,17 +23,17 @@ if (!__DEV__) {
   //  Add the typescript definition file build
   addons.push(
     {
-      input: './dist-test/index.d.ts',
+      input: './dist-test/types/index.d.ts',
       output: { file: 'dist/index.d.ts', format: 'es' },
       plugins: [dts()],
     },
     {
-      input: './dist-test/svelte/svelte-actions.d.ts',
+      input: './dist-test/types/svelte/svelte-actions.d.ts',
       output: { file: 'dist/svelte-actions.d.ts', format: 'es' },
       plugins: [dts()],
     },
     {
-      input: './dist-test/solid/solid.d.ts',
+      input: './dist-test/types/solid/solid.d.ts',
       output: { file: 'dist/solid.d.ts', format: 'es' },
       plugins: [dts()],
     },

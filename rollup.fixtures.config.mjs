@@ -40,11 +40,11 @@ export default [
         presets: ['solid'],
       }),
 
-      // Serve and livereload
-      serve({
-        port: 3039,
-        historyApiFallback: true,
-      }),
+      // // Serve and livereload
+      // serve({
+      //   port: 3039,
+      //   historyApiFallback: true,
+      // }),
     ],
   },
 ];
