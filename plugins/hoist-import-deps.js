@@ -90,7 +90,6 @@ export function __loadDeps(baseImport, ...deps) {
   }
 
   for (let dep of deps) {
-    if (!dep.endsWith('.js')) dep += '.js';
     if (!seen.has(dep)) {
       seen.set(dep, import(dep));
     }
