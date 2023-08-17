@@ -78,18 +78,20 @@ export default routes;
   //
   //
 
-  async function add(path: string) {
+  function add(path: string) {
     queueOutput();
 
     path = path.replace(/\\/g, '/');
     const segments = opts.patternMatcher!.splitSegments!(opts, path);
 
-    filesWatched.push({
+    const route: FileWatched = {
       path,
       importPath: opts.patternMatcher!.fixImportPath!(opts, path),
       route: '/' + segments.join('/'),
       segments,
-    });
+    };
+
+    filesWatched.push(route);
   }
 
   //
@@ -111,12 +113,19 @@ export default routes;
       });
 
       watcher
-        .on('add', add)
+        .on('add', (path) => {
+          add(path);
+          console.log('Detected route file: ' + path);
+        })
         .on('change', (path) => {
           remove(path);
           add(path);
+          console.log('Changed route file: ' + path);
         })
-        .on('unlink', remove);
+        .on('unlink', (path) => {
+          console.log('Removed route file: ' + path);
+          remove(path);
+        });
     },
 
     //
