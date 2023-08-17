@@ -5,7 +5,7 @@ import routesWatcher from './routes-watcher';
 //
 //
 
-export default function routesPlugin(options?: RoutesPluginOptions): Plugin {
+export function routesPlugin(options?: RoutesPluginOptions): Plugin {
   const watcher = routesWatcher(options);
   //
   //
