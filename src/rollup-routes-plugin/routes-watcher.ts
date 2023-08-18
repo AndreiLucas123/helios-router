@@ -107,6 +107,7 @@ export default function routesWatcher(options?: RoutesPluginOptions): {
   //
 
   function remove(path: string) {
+    path = path.replace(/\\/g, '/');
     filesWatched = filesWatched.filter((file) => file.path !== path);
     queueOutput();
   }
