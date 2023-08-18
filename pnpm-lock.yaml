@@ -9,8 +9,8 @@ devDependencies:
     specifier: ^7.22.10
     version: 7.22.10(@babel/core@7.22.10)
   '@playwright/test':
-    specifier: ^1.37.0
-    version: 1.37.0
+    specifier: ^1.37.1
+    version: 1.37.1
   '@rollup/plugin-babel':
     specifier: ^6.0.3
     version: 6.0.3(@babel/core@7.22.10)(rollup@3.28.0)
@@ -18,8 +18,8 @@ devDependencies:
     specifier: ^25.0.4
     version: 25.0.4(rollup@3.28.0)
   '@rollup/plugin-node-resolve':
-    specifier: ^15.1.0
-    version: 15.1.0(rollup@3.28.0)
+    specifier: ^15.2.0
+    version: 15.2.0(rollup@3.28.0)
   acorn-jsx:
     specifier: ^5.3.2
     version: 5.3.2(acorn@8.10.0)
@@ -51,8 +51,8 @@ devDependencies:
     specifier: ^2.0.0
     version: 2.0.0
   rollup-plugin-dts:
-    specifier: ^5.3.1
-    version: 5.3.1(rollup@3.28.0)(typescript@5.1.6)
+    specifier: ^6.0.0
+    version: 6.0.0(rollup@3.28.0)(typescript@5.1.6)
   rollup-plugin-esbuild:
     specifier: ^5.0.0
     version: 5.0.0(esbuild@0.19.2)(rollup@3.28.0)
@@ -65,6 +65,9 @@ devDependencies:
   rollup-plugin-svelte:
     specifier: ^7.1.6
     version: 7.1.6(rollup@3.28.0)(svelte@4.2.0)
+  so-rollup-plugins-utils:
+    specifier: ^0.1.1
+    version: 0.1.1
   solid-js:
     specifier: ^1.7.11
     version: 1.7.11
@@ -72,8 +75,8 @@ devDependencies:
     specifier: ^4.2.0
     version: 4.2.0
   tslib:
-    specifier: ^2.6.1
-    version: 2.6.1
+    specifier: ^2.6.2
+    version: 2.6.2
   typescript:
     specifier: ^5.1.6
     version: 5.1.6
@@ -1196,7 +1199,7 @@ packages:
       babel-plugin-polyfill-corejs2: 0.4.5(@babel/core@7.22.10)
       babel-plugin-polyfill-corejs3: 0.8.3(@babel/core@7.22.10)
       babel-plugin-polyfill-regenerator: 0.5.2(@babel/core@7.22.10)
-      core-js-compat: 3.32.0
+      core-js-compat: 3.32.1
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -1509,13 +1512,13 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@playwright/test@1.37.0:
-    resolution: {integrity: sha512-181WBLk4SRUyH1Q96VZl7BP6HcK0b7lbdeKisn3N/vnjitk+9HbdlFz/L5fey05vxaAhldIDnzo8KUoy8S3mmQ==}
+  /@playwright/test@1.37.1:
+    resolution: {integrity: sha512-bq9zTli3vWJo8S3LwB91U0qDNQDpEXnw7knhxLM0nwDvexQAwx9tO8iKDZSqqneVq+URd/WIoz+BALMqUTgdSg==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      '@types/node': 20.5.0
-      playwright-core: 1.37.0
+      '@types/node': 20.5.1
+      playwright-core: 1.37.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -1557,8 +1560,8 @@ packages:
       rollup: 3.28.0
     dev: true
 
-  /@rollup/plugin-node-resolve@15.1.0(rollup@3.28.0):
-    resolution: {integrity: sha512-xeZHCgsiZ9pzYVgAo9580eCGqwh/XCEUM9q6iQfGNocjgkufHAqC3exA+45URvhiYV8sBF9RlBai650eNs7AsA==}
+  /@rollup/plugin-node-resolve@15.2.0(rollup@3.28.0):
+    resolution: {integrity: sha512-mKur03xNGT8O9ODO6FtT43ITGqHWZbKPdVJHZb+iV9QYcdlhUUB0wgknvA4KCUmC5oHJF6O2W1EgmyOQyVUI4Q==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.78.0||^3.0.0
@@ -1611,15 +1614,15 @@ packages:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 20.5.0
+      '@types/node': 20.5.1
     dev: true
 
   /@types/minimatch@5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
     dev: true
 
-  /@types/node@20.5.0:
-    resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
+  /@types/node@20.5.1:
+    resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
     dev: true
 
   /@types/resolve@1.20.2:
@@ -1721,7 +1724,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       '@babel/helper-define-polyfill-provider': 0.4.2(@babel/core@7.22.10)
-      core-js-compat: 3.32.0
+      core-js-compat: 3.32.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1785,7 +1788,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001521
-      electron-to-chromium: 1.4.492
+      electron-to-chromium: 1.4.496
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11(browserslist@4.21.10)
     dev: true
@@ -1906,8 +1909,8 @@ packages:
     resolution: {integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==}
     dev: true
 
-  /core-js-compat@3.32.0:
-    resolution: {integrity: sha512-7a9a3D1k4UCVKnLhrgALyFcP7YCsLOQIxPd0dKjf/6GuPcgyiGP70ewWdCGrSK7evyhymi0qO4EqCmSJofDeYw==}
+  /core-js-compat@3.32.1:
+    resolution: {integrity: sha512-GSvKDv4wE0bPnQtjklV101juQ85g6H3rm5PDP20mqlS5j0kXF3pP97YvAu5hl+uFHqMictp3b2VxOHljWMAtuA==}
     dependencies:
       browserslist: 4.21.10
     dev: true
@@ -2098,8 +2101,8 @@ packages:
       domhandler: 4.3.1
     dev: true
 
-  /electron-to-chromium@1.4.492:
-    resolution: {integrity: sha512-36K9b/6skMVwAIEsC7GiQ8I8N3soCALVSHqWHzNDtGemAcI9Xu8hP02cywWM0A794rTHm0b0zHPeLJHtgFVamQ==}
+  /electron-to-chromium@1.4.496:
+    resolution: {integrity: sha512-qeXC3Zbykq44RCrBa4kr8v/dWzYJA8rAwpyh9Qd+NKWoJfjG5vvJqy9XOJ9H4P/lqulZBCgUWAYi+FeK5AuJ8g==}
     dev: true
 
   /entities@2.2.0:
@@ -2635,8 +2638,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /playwright-core@1.37.0:
-    resolution: {integrity: sha512-1c46jhTH/myQw6sesrcuHVtLoSNfJv8Pfy9t3rs6subY7kARv0HRw5PpyfPYPpPtQvBOmgbE6K+qgYUpj81LAA==}
+  /playwright-core@1.37.1:
+    resolution: {integrity: sha512-17EuQxlSIYCmEMwzMqusJ2ztDgJePjrbttaefgdsiqeLWidjYz9BxXaTaZWxH1J95SHGk6tjE+dwgWILJoUZfA==}
     engines: {node: '>=16'}
     hasBin: true
     dev: true
@@ -3128,12 +3131,12 @@ packages:
       del: 5.1.0
     dev: true
 
-  /rollup-plugin-dts@5.3.1(rollup@3.28.0)(typescript@5.1.6):
-    resolution: {integrity: sha512-gusMi+Z4gY/JaEQeXnB0RUdU82h1kF0WYzCWgVmV4p3hWXqelaKuCvcJawfeg+EKn2T1Ie+YWF2OiN1/L8bTVg==}
-    engines: {node: '>=v14.21.3'}
+  /rollup-plugin-dts@6.0.0(rollup@3.28.0)(typescript@5.1.6):
+    resolution: {integrity: sha512-A996xSZDAqnx/KfFttzC8mDEuyMjsRpiLCrlGc8effhK8KhE3AG0g1woQiITgFc5HSE8HWU7ccR9CiQ3vXgUlQ==}
+    engines: {node: '>=v18.17.1'}
     peerDependencies:
-      rollup: ^3.0
-      typescript: ^4.1 || ^5.0
+      rollup: ^3.25.0
+      typescript: ^4.5 || ^5.0
     dependencies:
       magic-string: 0.30.2
       rollup: 3.28.0
@@ -3243,6 +3246,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /so-rollup-plugins-utils@0.1.1:
+    resolution: {integrity: sha512-DVkVrXLwcva2XNhsxOwwNgxc/Q/gMXmMkRw81Eb0NSzAXghOIUukzOu9m9Bowbr+l8jwKaFhA5Q9/mH3IOcM5A==}
+    dev: true
+
   /solid-js@1.7.11:
     resolution: {integrity: sha512-JkuvsHt8jqy7USsy9xJtT18aF9r2pFO+GB8JQ2XGTvtF49rGTObB46iebD25sE3qVNvIbwglXOXdALnJq9IHtQ==}
     dependencies:
@@ -3349,8 +3356,8 @@ packages:
       is-number: 7.0.0
     dev: true
 
-  /tslib@2.6.1:
-    resolution: {integrity: sha512-t0hLfiEKfMUoqhG+U1oid7Pva4bbDPHYfJNiB7BiIjRkj1pyC++4N3huJfqY6aRH6VTB0rvtzQwjM4K6qpfOig==}
+  /tslib@2.6.2:
+    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
     dev: true
 
   /typescript@5.1.6:

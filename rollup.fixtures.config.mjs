@@ -5,7 +5,7 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import serve from 'rollup-plugin-serve';
 import { babel } from '@rollup/plugin-babel';
-import { hoistImportDeps } from './plugins/hoist-import-deps.js';
+import { hoistImportDeps } from 'so-rollup-plugins-utils';
 
 //
 //

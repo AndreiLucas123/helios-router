@@ -1,7 +1,6 @@
 import esbuild from 'rollup-plugin-esbuild';
 import dts from 'rollup-plugin-dts';
-import rollupPluginPreserveJsx from './plugins/rollup-plugin-preserve-jsx.js';
-import renameChunkPlugin from './plugins/rollup-plugin-rename-chunk.mjs';
+import { preserveJSX, renameChunkPlugin } from 'so-rollup-plugins-utils';
 import tests from './rollup.fixtures.config.mjs';
 import plugins from './rollup.plugins.config.mjs';
 
@@ -92,7 +91,7 @@ export default [
       //   babelHelpers: 'bundled',
       //   presets: [['solid', { generate: 'ssr', hydratable: true }]],
       // }),
-      rollupPluginPreserveJsx(),
+      preserveJSX(),
       renameChunkPlugin({
         oldName: 'solid.js',
         newName: 'solid.jsx',
