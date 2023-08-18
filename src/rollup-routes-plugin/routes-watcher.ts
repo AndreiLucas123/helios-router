@@ -3,7 +3,9 @@ import { writeFile } from 'node:fs/promises';
 import { dollarFileMatchPattern } from './dollarFileMatchPattern';
 import { relative } from 'node:path';
 import { sortRoutes } from './sortRoutes';
+import { consoleLogger } from './logger';
 import chokidar from 'chokidar';
+import { detectConflicts } from './detectConflicts';
 
 //
 //
@@ -19,7 +21,10 @@ export type FileWatched = {
 //
 //
 
-export default function routesWatcher(options?: RoutesPluginOptions): {
+export default function routesWatcher(
+  options: RoutesPluginOptions = {},
+  logger = consoleLogger,
+): {
   start(): void;
   stop(): void;
 } {
@@ -52,6 +57,7 @@ export default function routesWatcher(options?: RoutesPluginOptions): {
 
   async function generateOutput() {
     filesWatched = sortRoutes(filesWatched);
+    detectConflicts(filesWatched, logger);
 
     const nonDev = filesWatched.filter((file) => !file.dev);
     const dev = filesWatched.filter((file) => file.dev);
@@ -101,6 +107,8 @@ export default function routesWatcher(options?: RoutesPluginOptions): {
     };
 
     filesWatched.push(route);
+
+    return route;
   }
 
   //
@@ -124,19 +132,29 @@ export default function routesWatcher(options?: RoutesPluginOptions): {
         persistent: true,
       });
 
+      let padding = 0;
+
       watcher
         .on('add', (path) => {
-          add(path);
-          console.log('Detected route file: ' + path);
+          const route = add(path);
+
+          padding = Math.max(padding, route.route.length);
+
+          let repeat = padding - route.route.length + 1;
+          if (repeat > 50) repeat = 50;
+
+          logger.info(
+            `route ${route.route}${' '.repeat(repeat)} -> ${route.path}`,
+          );
         })
         .on('change', (path) => {
           remove(path);
           add(path);
-          console.log('Changed route file: ' + path);
+          logger.info('Changed route file: ' + path);
         })
         .on('unlink', (path) => {
-          console.log('Removed route file: ' + path);
           remove(path);
+          logger.info('Removed route file: ' + path);
         });
     },
 
