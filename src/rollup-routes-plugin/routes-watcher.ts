@@ -162,6 +162,7 @@ export default function routesWatcher(
     //
 
     stop() {
+      clearTimeout(timeout);
       watcher?.close();
     },
   };
