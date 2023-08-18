@@ -7,4 +7,11 @@ let routes = {
   '/*': () => import('./$slug/index.page'),
 };
 
+if (__DEV__) {
+  routes = {
+    '/dev': () => import('./dev/index.page'),
+    ...routes
+  } as any;
+}
+
 export default routes;

@@ -13,6 +13,7 @@ export type FileWatched = {
   importPath: string;
   route: string;
   segments: string[];
+  dev: boolean;
 };
 
 //
@@ -52,18 +53,26 @@ export default function routesWatcher(options?: RoutesPluginOptions): {
   async function generateOutput() {
     filesWatched = sortRoutes(filesWatched);
 
+    const nonDev = filesWatched.filter((file) => !file.dev);
+    const dev = filesWatched.filter((file) => file.dev);
+
     let output = `let routes = {`;
 
-    for (const file of filesWatched) {
-      output += `
-  '${file.route}': () => import('${file.importPath}'),`;
+    for (const file of nonDev) {
+      output += `\n  '${file.route}': () => import('${file.importPath}'),`;
     }
 
-    output += `
-};
+    output += `\n};`;
 
-export default routes;
-`;
+    if (dev.length > 0) {
+      output += `\n\nif (__DEV__) {\n  routes = {`;
+      for (const file of dev) {
+        output += `\n    '${file.route}': () => import('${file.importPath}'),`;
+      }
+      output += `\n    ...routes\n  } as any;\n}`;
+    }
+
+    output += `\n\nexport default routes;\n`;
 
     if (output === fileOutput) {
       return;
@@ -72,7 +81,6 @@ export default routes;
     fileOutput = output;
 
     await writeFile(opts.routesFolder! + '/routes.ts', output, 'utf-8');
-    console.log('routes-plugin: successfully generated routes.ts');
   }
 
   //
@@ -89,6 +97,7 @@ export default routes;
       importPath: opts.patternMatcher!.fixImportPath!(opts, path),
       route: '/' + segments.join('/'),
       segments,
+      dev: segments.some((segment) => segment === 'dev'),
     };
 
     filesWatched.push(route);
@@ -107,6 +116,8 @@ export default routes;
 
   return {
     start() {
+      queueOutput();
+
       watcher = chokidar.watch(opts.pagesGlob!, {
         ignored: /(^|[\/\\])\../, // Ignorar arquivos ocultos
         persistent: true,
