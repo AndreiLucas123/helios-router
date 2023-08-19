@@ -1,7 +1,7 @@
 import type { RoutesPluginOptions } from './types';
-import { writeFile } from 'node:fs/promises';
-import { dollarFileMatchPattern } from './dollarFileMatchPattern';
+import { writeFile, readFile } from 'node:fs/promises';
 import { relative } from 'node:path';
+import { dollarFileMatchPattern } from './dollarFileMatchPattern';
 import { sortRoutes } from './sortRoutes';
 import { consoleLogger } from './logger';
 import chokidar from 'chokidar';
@@ -86,7 +86,15 @@ export default function routesWatcher(
 
     fileOutput = output;
 
-    await writeFile(opts.routesFolder! + '/routes.ts', output, 'utf-8');
+    const filePath = opts.routesFolder! + '/routes.ts';
+
+    const fileContent = await readFile(filePath, 'utf-8');
+
+    if (fileContent === output) {
+      return;
+    }
+
+    await writeFile(filePath, output, 'utf-8');
   }
 
   //
