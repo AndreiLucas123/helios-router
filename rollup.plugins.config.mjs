@@ -14,7 +14,7 @@ if (!__DEV__) {
   //
   //  Add the typescript definition file build
   addons.push({
-    input: './dist-test/types/src/rollup-routes-plugin/index.d.ts',
+    input: './dist-test/types/rollup-routes-plugin/index.d.ts',
     output: { file: 'dist/rollup-routes-plugin.d.ts', format: 'es' },
     plugins: [dts()],
   });

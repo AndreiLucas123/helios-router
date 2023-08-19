@@ -1,13 +1,13 @@
 {
   "name": "helios-router",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "author": "Simple Organization",
   "scripts": {
     "build": "tsc && rollup -c",
     "dev": "rollup -c -w",
     "preview": "vite preview",
     "test": "pnpm playwright test",
-    "prepack": "pnpm build",
+    "prepack": "tsc && pnpm build",
     "test:ui": "pnpm playwright test --ui"
   },
   "devDependencies": {
