@@ -16,7 +16,7 @@ let onPopState: () => void;
 //
 //
 
-export function setRoutes(routes: RoutesConfigImports) {
+export function setRoutes(routes: RoutesConfigImports): Promise<void> {
   pushRoute = function puthRoute(path: string, query?: any) {
     //
 
@@ -51,7 +51,7 @@ export function setRoutes(routes: RoutesConfigImports) {
   //
   //
 
-  changeAppFrameConfig(location.href, routes);
+  const promise = changeAppFrameConfig(location.href, routes);
 
   if (__DEV__ && onPopState) {
     window.removeEventListener('popstate', onPopState);
@@ -62,4 +62,6 @@ export function setRoutes(routes: RoutesConfigImports) {
   };
 
   window.addEventListener('popstate', onPopState);
+
+  return promise;
 }

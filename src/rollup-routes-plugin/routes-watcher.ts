@@ -95,7 +95,6 @@ export default function routesWatcher(
   function add(path: string) {
     queueOutput();
 
-    path = path.replace(/\\/g, '/');
     const segments = opts.patternMatcher!.splitSegments!(opts, path);
 
     const route: FileWatched = {
@@ -115,7 +114,6 @@ export default function routesWatcher(
   //
 
   function remove(path: string) {
-    path = path.replace(/\\/g, '/');
     filesWatched = filesWatched.filter((file) => file.path !== path);
     queueOutput();
   }
@@ -136,6 +134,7 @@ export default function routesWatcher(
 
       watcher
         .on('add', (path) => {
+          path = path.replace(/\\/g, '/');
           const route = add(path);
 
           padding = Math.max(padding, route.route.length);
@@ -148,11 +147,13 @@ export default function routesWatcher(
           );
         })
         .on('change', (path) => {
+          path = path.replace(/\\/g, '/');
           remove(path);
           add(path);
           logger.info('Changed route file: ' + path);
         })
         .on('unlink', (path) => {
+          path = path.replace(/\\/g, '/');
           remove(path);
           logger.info('Removed route file: ' + path);
         });
