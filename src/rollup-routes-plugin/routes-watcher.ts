@@ -75,7 +75,7 @@ export default function routesWatcher(
       for (const file of dev) {
         output += `\n    '${file.route}': () => import('${file.importPath}'),`;
       }
-      output += `\n    ...routes\n  } as any;\n}`;
+      output += `\n    ...routes,\n  } as any;\n}`;
     }
 
     output += `\n\nexport default routes;\n`;
