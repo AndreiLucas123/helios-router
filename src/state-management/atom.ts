@@ -1,4 +1,5 @@
 import type { IWritable } from './state-management-types';
+
 //
 //
 
@@ -15,7 +16,6 @@ export interface Atom<T> extends IWritable<T> {
 /**
  * Factory function to create a new atom `(IWritable)`.
  * @param initial The initial value of the atom.
- * @param name The name of the atom. For debug purposes.
  */
 export function atom<T>(initial: T): Atom<T> {
   let value = initial;

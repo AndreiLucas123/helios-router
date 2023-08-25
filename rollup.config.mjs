@@ -76,6 +76,7 @@ export default [
       'svelte/internal/disclose-version',
       'solid-js',
       'solid-js/web',
+      'immer',
     ],
     watch: {
       clearScreen: false,
