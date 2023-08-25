@@ -1,16 +1,16 @@
-export {
-  Subscribable,
-  ThrowableSubscribable,
-} from './state-management/Subscribable';
+export { atom, type Atom } from './state-management/atom';
+export { selector, type Selector } from './state-management/selector';
+export type {
+  IReadable,
+  IWritable,
+} from './state-management/state-management-types';
 
-export type { ISubscribable } from './state-management/state-management-types';
 export type { RouteConfig, PageProps, RoutesConfigImports } from './types';
 
 export {
   loaderV4 as loader,
   INITIAL,
   LOADING,
-  type IReadable,
   type LoaderStages,
   type LoaderV4,
 } from './loaderV4';

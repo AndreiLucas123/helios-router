@@ -1,13 +1,4 @@
-//
-//
-
-/** Readable interface for subscribing. */
-export type IReadable<T> = {
-  /**
-   * Subscribe on value changes.
-   */
-  subscribe(run: (value: T) => void): () => void;
-};
+import { IReadable } from './state-management/state-management-types';
 
 //
 //

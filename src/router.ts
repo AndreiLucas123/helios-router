@@ -1,21 +1,21 @@
-import { Subscribable } from './state-management/Subscribable';
+import { atom } from './state-management/atom';
 import { RouteConfig, RoutesConfigImports } from './types';
 import { shallowObjectComparison } from './utils';
 
 //
 //
 
-export const pageProps = new Subscribable<Record<string, string>>(null as any);
+export const pageProps = atom<Record<string, string>>(null as any);
 
 //
 //
 
-export const pageMatched = new Subscribable<string | null>(null);
+export const pageMatched = atom<string | null>(null);
 
 //
 //
 
-export const routeAppFrameConfig = new Subscribable<RouteConfig | null>(null);
+export const routeAppFrameConfig = atom<RouteConfig | null>(null);
 
 //
 //

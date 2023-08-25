@@ -1,6 +1,6 @@
 import './utils/dev';
 import { expect, test } from '@playwright/test';
-import { Subscribable, INITIAL, loader as loaderV4 } from '../dist';
+import { atom, INITIAL, loader as loaderV4 } from '../dist';
 import { waitMs } from './utils/utils';
 
 //
@@ -28,7 +28,7 @@ test('Deve ser iniciado com as características corretas', () => {
 //
 
 test('Deve se inscrever corretamente, mas não iniciar', () => {
-  const sub1 = new Subscribable(0);
+  const sub1 = atom(0);
 
   //
   //
@@ -50,7 +50,7 @@ test('Deve se inscrever corretamente, mas não iniciar', () => {
 test('Deve iniciar quando alguém subscriver ao loader', () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable({ value: 12 });
+  const sub1 = atom({ value: 12 });
   let stages: string[] = [];
 
   //
@@ -84,7 +84,7 @@ test('Deve iniciar quando alguém subscriver ao loader', () => {
 test('Deve ficar com LOADING caso a função seja assíncrona', async () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable({ value: 12 });
+  const sub1 = atom({ value: 12 });
   let stages: string[] = [];
 
   //
@@ -119,9 +119,9 @@ test('Deve ficar com LOADING caso a função seja assíncrona', async () => {
 test('Deve entregar o objeto de cada dependencia', () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable({ value: 1 });
-  const sub2 = new Subscribable({ value: 2 });
-  const sub3 = new Subscribable({ value: 3 });
+  const sub1 = atom({ value: 1 });
+  const sub2 = atom({ value: 2 });
+  const sub3 = atom({ value: 3 });
   let delivered: any[] = [];
   let stages: string[] = [];
 
@@ -155,7 +155,7 @@ test('Deve entregar o objeto de cada dependencia', () => {
 test('nsSubscribe não deve dar start caso se subscreva', () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable({ value: 12 });
+  const sub1 = atom({ value: 12 });
   let stages: string[] = [];
 
   //
@@ -186,7 +186,7 @@ test('nsSubscribe não deve dar start caso se subscreva', () => {
 test('Quando uma dependencia mudar, deve notificar', async () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable({ value: 1 });
+  const sub1 = atom({ value: 1 });
   let stages: string[] = [];
 
   //
@@ -225,8 +225,8 @@ test('Quando uma dependencia mudar, deve notificar', async () => {
 test('Quando múltiplas dependencias mudarem, deve notificar uma única vez', async () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable({ value: 1 });
-  const sub2 = new Subscribable({ value: 1 });
+  const sub1 = atom({ value: 1 });
+  const sub2 = atom({ value: 1 });
   let stages: string[] = [];
 
   //
@@ -266,8 +266,8 @@ test('Quando múltiplas dependencias mudarem, deve notificar uma única vez', as
 test('Quando múltiplas dependencias mudarem de forma, deve notificar uma única vez', async () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable({ value: 1 });
-  const sub2 = new Subscribable({ value: 1 });
+  const sub1 = atom({ value: 1 });
+  const sub2 = atom({ value: 1 });
   let stages: string[] = [];
 
   //
@@ -314,8 +314,8 @@ test('Quando múltiplas dependencias mudarem de forma, deve notificar uma única
 test('Quando uma dependencia dá erro, ele continua no erro', async () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable<SubscribableType>({ type: 'error', value: 1 });
-  const sub2 = new Subscribable({ value: 1 });
+  const sub1 = atom<SubscribableType>({ type: 'error', value: 1 });
+  const sub2 = atom({ value: 1 });
   let stages: string[] = [];
 
   //
@@ -367,7 +367,7 @@ test('Quando uma dependencia dá erro, ele continua no erro', async () => {
 test('Deve não receber o valor cancelado', async () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable({ value: 10 });
+  const sub1 = atom({ value: 10 });
   let stages: string[] = [];
   let values: number[] = [];
 
@@ -434,7 +434,7 @@ test('Deve não receber o valor cancelado', async () => {
 test("Quando der erro de maneira sincrona, ele deve retornar o objeto.type === 'error'", () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable({ value: 10 });
+  const sub1 = atom({ value: 10 });
   let stages: string[] = [];
 
   //
@@ -463,7 +463,7 @@ test("Quando der erro de maneira sincrona, ele deve retornar o objeto.type === '
 test("Quando der erro de maneira assíncrona, ele deve retornar o objeto.type === 'error'", async () => {
   //
   // Loader only accepts subscribables that returns objects
-  const sub1 = new Subscribable({ value: 10 });
+  const sub1 = atom({ value: 10 });
   let stages: string[] = [];
 
   //
