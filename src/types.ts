@@ -13,12 +13,4 @@ export type RouteConfig = {
 //
 //
 
-export type ISubscribable<T> = {
-  get(): T;
-  subscribe(callback: (value: T) => void): () => void;
-};
-
-//
-//
-
 export type PageProps = Record<string, unknown>;

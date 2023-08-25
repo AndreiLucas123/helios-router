@@ -1,11 +1,10 @@
-export { Subscribable, ThrowableSubscribable } from './Subscribable';
-
 export {
-  type ISubscribable,
-  type RouteConfig,
-  type PageProps,
-  type RoutesConfigImports,
-} from './types';
+  Subscribable,
+  ThrowableSubscribable,
+} from './state-management/Subscribable';
+
+export type { ISubscribable } from './state-management/state-management-types';
+export type { RouteConfig, PageProps, RoutesConfigImports } from './types';
 
 export {
   loaderV4 as loader,

@@ -1,4 +1,4 @@
-import { Subscribable } from './Subscribable';
+import { Subscribable } from './state-management/Subscribable';
 import { RouteConfig, RoutesConfigImports } from './types';
 import { shallowObjectComparison } from './utils';
 

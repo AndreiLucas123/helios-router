@@ -1,4 +1,7 @@
-import { ISubscribable } from './types';
+import { ISubscribable } from './state-management-types';
+
+//
+//
 
 export class Subscribable<T> implements ISubscribable<T> {
   protected _value: T;
