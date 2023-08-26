@@ -11,7 +11,7 @@ import { matchRoute } from './matchRoute';
 
 export type CreateHeliosRouterOptions<T extends RouterAppState> = {
   routes: Routes;
-  appState: AppState<T>;
+  appStateStore: AppState<T>;
   hydrating?: boolean;
 };
 
@@ -27,7 +27,7 @@ export type HeliosRouter<T> = {
   /**
    * Store using immer to handle the app state
    */
-  appState: AppState<T>;
+  appStateStore: AppState<T>;
 
   /**
    * Given a url, load the route and update the app state
@@ -51,7 +51,7 @@ export type HeliosRouter<T> = {
  */
 export function createHeliosRouter<T extends RouterAppState>({
   routes,
-  appState,
+  appStateStore,
 }: CreateHeliosRouterOptions<T>): HeliosRouter<T> {
   //
   //
@@ -92,10 +92,10 @@ export function createHeliosRouter<T extends RouterAppState>({
     //
     //
     
-    appState.produce((appStateValue) => {
-      appStateValue.router.urlProps = matched.urlProps;
-      appStateValue.router.routeMatched = matched.routeMatched;
-      appStateValue.router.routeExport = moduleDefault;
+    appStateStore.produce((appState) => {
+      appState.router.urlProps = matched.urlProps;
+      appState.router.routeMatched = matched.routeMatched;
+      appState.routeExport = moduleDefault;
     });
   }
 
@@ -111,7 +111,7 @@ export function createHeliosRouter<T extends RouterAppState>({
 
   return {
     routes,
-    appState,
+    appStateStore,
     load,
     popState,
   };

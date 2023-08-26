@@ -5,9 +5,9 @@ import { AppState } from '../state-management/appState';
 
 export type RouterAppState = {
   /**
-   * AppState of the router
-   *
-   * If you want to change a route props state, you should put it outside of the routerAppState
+   * State of the router
+   * 
+   * That object will be sended with SSR
    */
   router: {
     /**
@@ -38,12 +38,16 @@ export type RouterAppState = {
      * { id: '123', foo: 'bar' }
      */
     urlProps?: Record<string, string>;
-
-    /**
-     * The default export of the route file, will be undefined when hydrating
-     */
-    routeExport?: RouteDefaultExport;
   };
+
+  /**
+   * The default export of the route file
+   * 
+   * Is used by AppFrames to display their components
+   * 
+   * Will not be sended with SSR
+   */
+  routeExport?: RouteDefaultExport;
 };
 
 //

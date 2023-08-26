@@ -4,6 +4,9 @@ import { produce } from 'immer';
 //
 //
 
+/**
+ * AppState are state more related to the server, but can be used for any state.
+ */
 export interface AppState<T> extends IReadable<T> {
   initial: T;
 
