@@ -1,7 +1,7 @@
-//
-//
-
 import { AppState } from '../state-management/appState';
+
+//
+//
 
 export type RouterAppState = {
   /**
@@ -55,16 +55,7 @@ export type RouteLoader<T> = (appState: AppState<T>) => Promise<void>;
  * The object that is exported by the route file
  */
 export type RouteDefaultExport = {
-  [key: string]: Function | RoutePartOfDefaultExport<any>;
-};
-
-/**
- * Route part of the default export RouteDefaultExport when is not a function
- * and has a loader
- */
-export type RoutePartOfDefaultExport<T> = {
-  loader: RouteLoader<T>;
-  component: Function;
+  [key: string]: Function;
 };
 
 /**

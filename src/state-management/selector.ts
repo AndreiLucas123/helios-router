@@ -48,12 +48,13 @@ export function selector<U, T>(
       return value;
     },
 
-    subscribe(callback: (value: U) => void) {
+    subscribe(callback: (value: U) => void): () => void {
+      if (!unsub) {
+        unsub = from.subscribe((v) => set(v));
+      }
+
       callback(value);
       subscribers.add(callback);
-      if (!unsub) {
-        unsub = from.subscribe((value) => set(value));
-      }
 
       return () => {
         subscribers.delete(callback);
@@ -76,35 +77,15 @@ export function selector<U, T>(
       get fromValue() {
         return fromValue;
       },
-      subscribers,
       get started() {
         return unsub !== undefined;
       },
+      subscribers,
     };
   }
 
-  return {
-    get() {
-      if (!unsub) {
-        return getter(from.get());
-      }
-      return value;
-    },
+  //
+  //
 
-    subscribe(callback: (value: U) => void) {
-      callback(value);
-      subscribers.add(callback);
-      if (!unsub) {
-        unsub = from.subscribe((value) => set(value));
-      }
-
-      return () => {
-        subscribers.delete(callback);
-        if (subscribers.size === 0) {
-          unsub?.();
-          unsub = undefined;
-        }
-      };
-    },
-  };
+  return _selector;
 }

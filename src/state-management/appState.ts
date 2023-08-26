@@ -23,7 +23,7 @@ export interface AppState<T> extends IReadable<T> {
    * @param producer The recipe function to create a new value
    * @param noEmit If true, the subscribers will not be called yet, normally will the emit will be called after
    */
-  produce(producer: (draft: T) => void, noEmit: boolean): T;
+  produce(producer: (draft: T) => void, noEmit?: boolean): T;
 
   /**
    * Emit the new value to the subscribers, usually is used after the `produce` function with noEmit = true

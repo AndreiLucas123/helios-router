@@ -12,7 +12,11 @@ const __DEV__ = !!process.env.ROLLUP_WATCH;
 //
 //
 
-const addons = [...plugins, ...tests];
+const addons = [
+  ...plugins,
+  ...tests,
+  //
+];
 
 //
 //
@@ -53,19 +57,6 @@ export default [
       dir: './dist',
       format: 'es',
       sourcemap: false,
-      manualChunks(id) {
-        if (id.includes('src')) {
-          if (id.includes('svelte-actions')) {
-            return 'svelte-actions';
-          }
-
-          if (id.includes('solid')) {
-            return 'solid';
-          }
-
-          return 'index';
-        }
-      },
       entryFileNames: `[name].js`,
       chunkFileNames: `[name].js`,
       assetFileNames: `[name].[ext]`,
