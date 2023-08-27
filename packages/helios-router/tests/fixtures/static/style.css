@@ -1,0 +1,6 @@
+app-root {
+  display: grid;
+  height: 100svh;
+  place-items: center;
+  padding-bottom: 10svh;
+}

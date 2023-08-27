@@ -1,5 +1,5 @@
 export { atom, type Atom } from './state-management/atom';
-export { appState, type AppState } from './state-management/appState';
+export { createAppState, type AppState } from './state-management/createAppState';
 export { selector, type Selector } from './state-management/selector';
 
 export { createHeliosRouter } from './router/createHeliosRouter';

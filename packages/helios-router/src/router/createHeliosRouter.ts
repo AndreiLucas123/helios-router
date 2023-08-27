@@ -1,4 +1,4 @@
-import type { AppState } from '../state-management/appState';
+import type { AppState } from '../state-management/createAppState';
 import type {
   RouteDefaultExport,
   RouterAppState,
@@ -12,7 +12,6 @@ import { matchRoute } from './matchRoute';
 export type CreateHeliosRouterOptions<T extends RouterAppState> = {
   routes: Routes;
   appStateStore: AppState<T>;
-  hydrating?: boolean;
 };
 
 //

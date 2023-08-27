@@ -12,7 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: 'tests',
   // Folder for test artifacts such as screenshots, videos, traces, etc.
-  outputDir: 'dist-test/test-results',
+  outputDir: 'dist/test-results',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -74,9 +74,9 @@ export default defineConfig({
   testMatch: /.+\.test\.[jt]s/,
 
   /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://127.0.0.1:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  webServer: {
+    command: 'pnpm http-server ./tests/fixtures -p 3039',
+    url: 'http://127.0.0.1:3039',
+    reuseExistingServer: !process.env.CI,
+  },
 });

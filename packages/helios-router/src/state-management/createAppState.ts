@@ -46,7 +46,7 @@ export interface AppState<T> extends IReadable<T> {
  * Factory function to create a new appState `(IWritable)`.
  * @param initial The initial value of the appState
  */
-export function appState<T>(initial: T): AppState<T> {
+export function createAppState<T>(initial: T): AppState<T> {
   let value = initial;
   const subscribers = new Set<(value: T) => void>();
 
