@@ -35,19 +35,13 @@ customEl('app-root', (el) => {
   //
 
   function rerender(err?: any) {
-    if (err) {
-      console.error(err);
-      return html`<main>
-        <h3>App Root</h3>
-        <div>Clicks on app-link: ${appStateStore.get().appLinkClicks}</div>
-        <div>Error ${err.toString()}</div>
-        <app-frame-lit-html id="root"></app-frame-lit-html>
-      </main>`;
-    }
-
     return html`<main>
       <h3>App Root</h3>
       <div>Clicks on app-link: ${appStateStore.get().appLinkClicks}</div>
+      <div>
+        Url props ${JSON.stringify(appStateStore.get().router.urlProps)}
+      </div>
+      ${err ? html`<div>Error ${err.toString()}</div>` : ''}
       <app-frame-lit-html id="root"></app-frame-lit-html>
       <div @click=${displayAppState}>Display appState</div>
     </main>`;

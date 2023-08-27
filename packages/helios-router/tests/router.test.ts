@@ -6,9 +6,7 @@ import { expect, test } from '@playwright/test';
 test('Deve ir de Home para About com sucesso', async ({ page }) => {
   //
   await page.goto('http://localhost:3039/');
-  await page
-    .getByText('App Root')
-    .click();
+  await page.getByText('App Root').click();
   await page.getByRole('link', { name: 'Home' }).click();
   await page.getByRole('link', { name: 'About', exact: true }).click();
   await expect(page.getByRole('main')).toContainText('About');
@@ -18,52 +16,105 @@ test('Deve ir de Home para About com sucesso', async ({ page }) => {
 //
 //
 
-test.skip('Deve ir de About para About with error com sucesso', async ({ page }) => {
+test('Deve ter Url props como {} quando não está em nenhuma rota com urlProps', async ({
+  page,
+}) => {
   //
   await page.goto('http://localhost:3039/');
+  await page.getByText('App Root').click();
+  await expect(page.getByRole('main')).toContainText('Url props {}');
+  await expect(page.getByRole('main')).toContainText('Clicks on app-link: 0');
+});
+
+//
+//
+
+test('Deve ter Url props como {"id":"1"} quando define urlProps com queryParams', async ({
+  page,
+}) => {
+  //
+  await page.goto('http://localhost:3039/?id=1');
+  await page.getByText('App Root').click();
+  await expect(page.getByRole('main')).toContainText('Url props {"id":"1"}');
+  await expect(page.getByRole('main')).toContainText('Clicks on app-link: 0');
+});
+
+//
+//
+
+test('Deve ter Url props como {"id":"1"} quando vai em uma rota com params como :id por exemplo', async ({
+  page,
+}) => {
+  //
+  await page.goto('http://localhost:3039/client/1');
+  await expect(page.getByRole('main')).toContainText('Client id: 1');
+  await expect(page.getByRole('main')).toContainText('Url props {"id":"1"}');
+  await page.goto('http://localhost:3039/client/2');
+  await expect(page.getByRole('main')).toContainText('Client id: 2');
+  await expect(page.getByRole('main')).toContainText('Url props {"id":"2"}');
+  await page.goto('http://localhost:3039/client/3');
+  await expect(page.getByRole('main')).toContainText('Client id: 3');
+  await expect(page.getByRole('main')).toContainText('Url props {"id":"3"}');
+  await page.goto('http://localhost:3039/client/4');
+  await expect(page.getByRole('main')).toContainText('Client id: 4');
+  await expect(page.getByRole('main')).toContainText('Url props {"id":"4"}');
+});
+
+//
+//
+
+test('Deve ter Url props como {"id":"1"} quando navegar', async ({ page }) => {
+  //
+  await page.goto('http://localhost:3039/client/1');
+  await expect(page.getByRole('main')).toContainText('Client id: 1');
+  await expect(page.getByRole('main')).toContainText('Url props {"id":"1"}');
+  await expect(page.getByRole('main')).toContainText('Clicks on app-link: 0');
+
+  await page.getByRole('link', { name: 'Home' }).click();
+  expect(page.url()).toBe('http://localhost:3039/');
+  await expect(page.getByRole('main')).toContainText('Clicks on app-link: 1');
+
+  await page.getByRole('link', { name: 'Client 2' }).click();
+  expect(page.url()).toBe('http://localhost:3039/client/2');
+  await expect(page.getByRole('main')).toContainText('Clicks on app-link: 2');
+  await expect(page.getByRole('main')).toContainText('Client id: 2');
+  await expect(page.getByRole('main')).toContainText('Url props {"id":"2"}');
+
+  await page.getByRole('link', { name: 'Client 3' }).click();
+  expect(page.url()).toBe('http://localhost:3039/client/3?search=randomstuff');
+  await expect(page.getByRole('main')).toContainText('Clicks on app-link: 3');
+  await expect(page.getByRole('main')).toContainText('Client id: 3');
+  await expect(page.getByRole('main')).toContainText(
+    'Url props {"search":"randomstuff","id":"3"}',
+  );
+});
+
+//
+//
+
+test('popstate deve funcionar com sucesso', async ({ page }) => {
+  //
+  await page.goto('http://localhost:3039');
+
+  await expect(page.getByRole('main')).toContainText('App Root');
+  await expect(page.getByRole('main')).toContainText('Home');
+  await expect(page.getByRole('main')).toContainText('Url props {}');
 
   await page.getByRole('link', { name: 'About', exact: true }).click();
-  await expect(page.getByRole('main')).toContainText('LOADING...');
   await expect(page.getByRole('main')).toContainText('About');
 
-  await page.getByRole('link', { name: 'About with error' }).click();
-  await expect(page.getByRole('main')).toContainText('LOADING...');
-  await expect(page.getByRole('main')).toContainText('SOME ERROR...');
-});
+  await page.goBack();
+  await expect(page.getByRole('main')).toContainText('Home');
+  await expect(page.getByRole('main')).toContainText('Clicks on app-link: 1');
 
-//
-//
+  await page.getByRole('link', { name: 'About', exact: true }).click();
+  await expect(page.getByRole('main')).toContainText('About');
 
-test.skip('Deve ir para Cliente com sucesso', async ({ page }) => {
-  //
-  await page.goto('http://localhost:3039/');
-  await page.getByRole('link', { name: 'Cliente 1' }).click();
-  expect(page.url()).toBe('http://localhost:3039/client/1');
+  await page.getByRole('link', { name: 'Client 1', exact: true }).click();
+  await expect(page.getByRole('main')).toContainText('Client 1');
+  await expect(page.getByRole('main')).toContainText('Clicks on app-link: 3');
 
-  await expect(page.getByRole('main')).toContainText('CLIENT LOADING...');
-  await expect(page.getByRole('main')).toContainText('Meu id é 1 It worked');
-  await expect(page.getByRole('main')).toContainText('I Cliente Child');
-});
-
-//
-//
-
-test.skip('popstate deve funcionar com sucesso', async ({ page }) => {
-  //
-await page.goto('http://localhost:3039/');
-
-await page.getByRole('link', { name: 'Home' }).click();
-await expect(page.getByRole('main')).toContainText('TODO CONTENT Você está na página / E os props são {}');
-
-await page.getByRole('link', { name: 'About', exact: true }).click();
-await expect(page.getByRole('main')).toContainText('About');
-
-await page.getByRole('link', { name: 'About with error' }).click();
-await expect(page.getByRole('main')).toContainText('SOME ERROR...');
-
-await page.goBack();
-await expect(page.getByRole('main')).toContainText('About');
-
-await page.goBack();
-await expect(page.getByRole('main')).toContainText('TODO CONTENT Você está na página / E os props são {}');
+  await page.goBack();
+  await page.goBack();
+  await expect(page.getByRole('main')).toContainText('Home');
 });
