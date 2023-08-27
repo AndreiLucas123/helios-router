@@ -1,4 +1,4 @@
-import { AppState } from '../state-management/createAppState';
+import { AppStateStore } from '../state-management/createAppState';
 
 //
 //
@@ -53,7 +53,7 @@ export type RouterAppState = {
 //
 //
 
-export type RouteLoader<T> = (appState: AppState<T>) => Promise<void>;
+export type RouteLoader<T> = (appState: AppStateStore<T>) => Promise<void>;
 
 /**
  * The object that is exported by the route file

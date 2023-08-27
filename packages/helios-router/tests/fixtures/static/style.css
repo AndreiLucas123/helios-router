@@ -1,8 +1,7 @@
 app-root {
   display: grid;
   height: 100svh;
-  place-items: center;
-  padding-bottom: 10svh;
+  padding: 10vh 20vw;
 }
 
 app-frame-lit-html {

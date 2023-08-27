@@ -1,4 +1,4 @@
-import type { AppState } from '../state-management/createAppState';
+import type { AppStateStore } from '../state-management/createAppState';
 import type {
   RouteDefaultExport,
   RouterAppState,
@@ -11,7 +11,7 @@ import { matchRoute } from './matchRoute';
 
 export type CreateHeliosRouterOptions<T extends RouterAppState> = {
   routes: Routes;
-  appStateStore: AppState<T>;
+  appStateStore: AppStateStore<T>;
 };
 
 //
@@ -26,7 +26,7 @@ export type HeliosRouter<T> = {
   /**
    * Store using immer to handle the app state
    */
-  appStateStore: AppState<T>;
+  appStateStore: AppStateStore<T>;
 
   /**
    * Given a url, load the route and update the app state

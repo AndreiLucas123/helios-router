@@ -7,7 +7,7 @@ import { produce } from 'immer';
 /**
  * AppState are state more related to the server, but can be used for any state.
  */
-export interface AppState<T> extends IReadable<T> {
+export interface AppStateStore<T> extends IReadable<T> {
   initial: T;
 
   /**
@@ -46,7 +46,7 @@ export interface AppState<T> extends IReadable<T> {
  * Factory function to create a new appState `(IWritable)`.
  * @param initial The initial value of the appState
  */
-export function createAppState<T>(initial: T): AppState<T> {
+export function createAppState<T>(initial: T): AppStateStore<T> {
   let value = initial;
   const subscribers = new Set<(value: T) => void>();
 
@@ -60,7 +60,7 @@ export function createAppState<T>(initial: T): AppState<T> {
   //
   //
 
-  const _appState: AppState<T> = {
+  const _appState: AppStateStore<T> = {
     get() {
       return value;
     },
