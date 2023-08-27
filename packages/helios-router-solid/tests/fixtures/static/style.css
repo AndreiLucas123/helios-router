@@ -1,0 +1,15 @@
+#root {
+  display: grid;
+  height: 100svh;
+  padding: 10vh 20vw;
+}
+
+.NavComponent__box {
+  display: flex;
+  gap: .5rem;
+}
+
+/* .NavComponent__a {
+  display: inline-block;
+  text-decoration: none;
+} */

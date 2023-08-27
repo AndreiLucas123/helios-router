@@ -1,6 +1,6 @@
 {
   "name": "helios-router",
-  "version": "0.2.0-beta",
+  "version": "0.2.0-beta.1",
   "author": "Simple Organization",
   "scripts": {
     "build": "tsc && rollup -c",
@@ -27,6 +27,7 @@
     "dist/index.js",
     "dist/index.d.ts"
   ],
+  "main": "dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
   "dependencies": {

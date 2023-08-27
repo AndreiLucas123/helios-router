@@ -12,7 +12,31 @@ export function createOnEffect(
     return;
   }
 
-  accessors.forEach((accessor) => accessor());
+  if (accessors.length < 2) {
+    createEffect(() => {
+      accessors.forEach((accessor) => accessor());
 
-  createEffect(() => untrack(callback));
+      untrack(callback);
+    });
+  } else {
+    let isDirty = false;
+
+    //
+    //
+
+    createEffect(() => {
+      accessors.forEach((accessor) => accessor());
+
+      if (isDirty) {
+        return;
+      }
+
+      isDirty = true;
+
+      Promise.resolve().then(() => {
+        isDirty = false;
+        callback();
+      });
+    });
+  }
 }

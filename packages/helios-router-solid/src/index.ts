@@ -4,3 +4,5 @@ export {
 } from './createSolidRoutePlaceholder';
 
 export { createOnEffect } from './createOnEffect';
+
+export { useSolidSubscribe } from './useSolidSubscribe';

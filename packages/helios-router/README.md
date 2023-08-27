@@ -4,6 +4,10 @@ Router simples com `state management`
 
 O router precisa de um arquivo de rotas que pode ser gerado manualmente ou automaticamente
 
+## `__DEV__` e `__SERVER__`
+
+Como no `schemas-lib` as variáveis `__DEV__` e `__SERVER__` devem estar declaradas antes de iniciar esse pacote e os pacotes relacionados
+
 ## Criando o `router`
 
 Exemplo de criação sem o arquivo `routes.ts`
