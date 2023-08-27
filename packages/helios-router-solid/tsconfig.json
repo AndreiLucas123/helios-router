@@ -19,6 +19,5 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["fixtures/rollup-routes-plugin/app/routes.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

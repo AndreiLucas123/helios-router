@@ -1,13 +1,15 @@
 import { test } from '@playwright/test';
-import { routesWatcher } from '../../dist/rollup-routes-plugin';
+import { routesWatcher } from '../dist/index';
 
 //
 //
 
-test.only('Deve criar o arquivo routes.ts com sucesso sucesso', async ({ page }) => {
+test.only('Deve criar o arquivo routes.ts com sucesso sucesso', async ({
+  page,
+}) => {
   //
   const watcher = routesWatcher({
-    routesFolder: './fixtures/rollup-routes-plugin/app',
+    routesFolder: '../fixtures/app',
   });
   watcher.start();
 

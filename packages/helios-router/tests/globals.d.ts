@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { setAppFrameConfigMethod } from '../src';
+import { setAppFrameConfigMethod } from '../../../src';
 import { testUtils } from './fixture/main';
 
 type TestUtilsRecord = ReturnType<typeof testUtils>;

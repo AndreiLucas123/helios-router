@@ -1,13 +1,12 @@
-/test-results/
-/playwright-report/
-/playwright/.cache/
+test-results
+playwright-report
+playwright/.cache/
 
 # Dependency directories
 node_modules
 
 # Build directories
 dist
-dist-test
 
 # Logs
 npm-debug.log*
