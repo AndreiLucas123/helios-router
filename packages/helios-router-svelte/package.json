@@ -13,13 +13,13 @@
     "@playwright/test": "^1.37.1",
     "esbuild": "0.19.2",
     "prettier": "3.0.2",
+    "prettier-plugin-svelte": "^3.0.3",
     "rollup": "^3.28.0",
     "rollup-plugin-dts": "^6.0.0",
-    "prettier-plugin-svelte": "^3.0.3",
     "rollup-plugin-esbuild": "^5.0.0",
-    "typescript": "^5.1.6",
     "rollup-plugin-svelte": "^7.1.6",
-    "svelte": "^4.2.0"
+    "svelte": "^4.2.0",
+    "typescript": "^5.1.6"
   },
   "peerDependencies": {
     "solid-js": "^1.7.11"
@@ -30,5 +30,8 @@
     "dist/index.d.ts"
   ],
   "type": "module",
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "helios-router": "0.2.0-beta.2"
+  }
 }

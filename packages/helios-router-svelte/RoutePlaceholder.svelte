@@ -1,6 +1,6 @@
 <script>
   import { onDestroy } from 'svelte';
-  import { routeAppFrameConfig } from './dist';
+  import { _routerExportSelector } from './dist/index';
 
   //
   //
@@ -12,11 +12,11 @@
   //
   //
 
-  const unsub = routeAppFrameConfig.subscribe((c) => {
+  const unsub = _routerExportSelector.subscribe((c) => {
     component = c?.[id] || null;
 
     if (__DEV__ && component && typeof component !== 'function')
-      throw new Error(`AppFrameSvelte: component ${id} not found`);
+      throw new Error(`RoutePlaceholder: component ${id} not found`);
   });
 
   //

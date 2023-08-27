@@ -1,6 +1,5 @@
 import esbuild from 'rollup-plugin-esbuild';
 import dts from 'rollup-plugin-dts';
-import { preserveJSX, renameChunkPlugin } from 'so-rollup-plugins-utils';
 
 //
 //
@@ -12,13 +11,13 @@ const __DEV__ = !!process.env.ROLLUP_WATCH;
 
 export default [
   {
-    input: './src/solid.tsx',
+    input: './src/index.ts',
     output: {
-      file: './dist/index.jsx',
+      file: './dist/index.js',
       format: 'es',
       sourcemap: false,
     },
-    external: ['immer'],
+    external: ['../RoutePlaceholder.svelte', 'helios-router'],
     watch: {
       clearScreen: false,
       include: 'src/**',
@@ -28,20 +27,10 @@ export default [
         sourceMap: false,
         minify: false,
       }),
-      // babel({
-      //   extensions: ['.tsx'],
-      //   babelHelpers: 'bundled',
-      //   presets: [['solid', { generate: 'ssr', hydratable: true }]],
-      // }),
-      preserveJSX(),
-      renameChunkPlugin({
-        oldName: 'solid.js',
-        newName: 'solid.jsx',
-      }),
     ],
   },
   {
-    input: './dist/types/index.d.ts',
+    input: './dist-types/index.d.ts',
     output: { file: 'dist/index.d.ts', format: 'es' },
     plugins: [dts()],
   },

@@ -51,8 +51,8 @@ importers:
   packages/helios-router-solid:
     dependencies:
       helios-router:
-        specifier: workspace:0.2.0-beta.1
-        version: link:../helios-router
+        specifier: 0.2.0-beta.1
+        version: 0.2.0-beta.1
       solid-js:
         specifier: ^1.7.11
         version: 1.7.11
@@ -102,6 +102,9 @@ importers:
 
   packages/helios-router-svelte:
     dependencies:
+      helios-router:
+        specifier: 0.2.0-beta.2
+        version: link:../helios-router
       solid-js:
         specifier: ^1.7.11
         version: 1.7.11
@@ -1071,6 +1074,12 @@ packages:
     dependencies:
       function-bind: 1.1.1
     dev: true
+
+  /helios-router@0.2.0-beta.1:
+    resolution: {integrity: sha512-pzefJLTz9olvnUCHnVI755ahDZJXnl1Z/4HuyDZST+VmsiXMRzaL7TLqvR0KVOLRDUHHv7RGBCMcxTc5bhTZIQ==}
+    dependencies:
+      immer: 10.0.2
+    dev: false
 
   /html-entities@2.3.3:
     resolution: {integrity: sha512-DV5Ln36z34NNTDgnz0EWGBLZENelNAtkiFA4kyNOG2tDI6Mz1uSWiq1wAKdyjnJwyDiDO7Fa2SO1CTxPXL8VxA==}

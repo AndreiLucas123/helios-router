@@ -7,7 +7,11 @@ export {
 
 export { selector, type Selector } from './state-management/selector';
 
-export { createHeliosRouter } from './router/createHeliosRouter';
+export {
+  createHeliosRouter,
+  type CreateHeliosRouterOptions,
+  type HeliosRouter,
+} from './router/createHeliosRouter';
 
 export type {
   IReadable,

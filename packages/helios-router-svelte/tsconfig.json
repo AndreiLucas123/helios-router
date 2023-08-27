@@ -13,11 +13,9 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "outDir": "dist-test/types",
+    "outDir": "dist/types",
     "declaration": true,
-    "emitDeclarationOnly": true,
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "emitDeclarationOnly": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts"]
 }
