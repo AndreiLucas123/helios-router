@@ -7,11 +7,12 @@ test('Deve ir de Home para About com sucesso', async ({ page }) => {
   //
   await page.goto('http://localhost:3039/');
   await page
-    .getByText('TODO CONTENT Você está na página / E os props são {}')
+    .getByText('App Root')
     .click();
   await page.getByRole('link', { name: 'Home' }).click();
   await page.getByRole('link', { name: 'About', exact: true }).click();
   await expect(page.getByRole('main')).toContainText('About');
+  await expect(page.getByRole('main')).toContainText('Clicks on app-link: 2');
 });
 
 //

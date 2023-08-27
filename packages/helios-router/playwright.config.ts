@@ -75,8 +75,8 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'pnpm http-server ./tests/fixtures -p 3039',
-    url: 'http://127.0.0.1:3039',
+    command: 'pnpm dev',
+    url: 'http://localhost:3039',
     reuseExistingServer: !process.env.CI,
   },
 });

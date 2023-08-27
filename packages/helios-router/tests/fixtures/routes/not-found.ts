@@ -1,4 +1,5 @@
 import { html } from 'lit-html';
+import { navComponent } from './nav-component';
 
 export default {
   root: () => {
@@ -8,17 +9,5 @@ export default {
     `;
   },
   //
-  link: () => {
-    
-
-    return html`<nav>
-    <app-link href="/">
-      <a href="/">Home</a>
-    </app-link>
-
-    <app-link href="/">
-      <a href="/about">About</a>
-    </app-link>
-  </nav>`;
-  },
+  link: navComponent,
 };

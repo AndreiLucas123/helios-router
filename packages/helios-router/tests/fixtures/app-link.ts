@@ -9,7 +9,9 @@ customEl('app-link', (el) => {
   }
 
   function onClick(e: Event) {
-    console.log('changed route with app-link');
+    router.appStateStore.produce((appState) => {
+      appState.appLinkClicks++;
+    });
     e.preventDefault();
     router.push((e.target as HTMLAnchorElement).getAttribute('href')!);
   }
