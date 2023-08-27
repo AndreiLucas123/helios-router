@@ -4,3 +4,7 @@ app-root {
   place-items: center;
   padding-bottom: 10svh;
 }
+
+app-frame-lit-html {
+  display: block;
+}

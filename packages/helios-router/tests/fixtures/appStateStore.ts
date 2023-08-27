@@ -1,4 +1,4 @@
-import { RouterAppState, appState } from '../../dist';
+import { RouterAppState, createAppState } from '../../dist';
 
 //
 //
@@ -8,6 +8,6 @@ export interface AppStateStore extends RouterAppState {}
 //
 //
 
-export const appStateStore = appState<AppStateStore>({
+export const appStateStore = createAppState<AppStateStore>({
   router: {},
 });

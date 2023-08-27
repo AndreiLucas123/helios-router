@@ -22,7 +22,7 @@ export default [
     external: [],
     watch: {
       clearScreen: false,
-      include: 'src/**',
+      include: 'tests/fixtures/**',
     },
     plugins: [
       nodeResolve({

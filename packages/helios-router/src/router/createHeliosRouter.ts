@@ -33,13 +33,23 @@ export type HeliosRouter<T> = {
    *
    * Does not update the browser history
    */
-  load: (url: URL) => Promise<void>;
+  load(url: URL): Promise<void>;
 
   /**
    * The function that is called when the user clicks the back button
    * or the forward button
    */
-  popState: () => void;
+  popState(): void;
+
+  /**
+   * history.pushState a new url to the browser history
+   */
+  push(url: string, query?: Record<string, string>): Promise<void>;
+
+  /**
+   * history.replaceState a new url to the browser history
+   */
+  replace(url: string, query?: Record<string, string>): Promise<void>;
 };
 
 //
@@ -90,7 +100,7 @@ export function createHeliosRouter<T extends RouterAppState>({
 
     //
     //
-    
+
     appStateStore.produce((appState) => {
       appState.router.urlProps = matched.urlProps;
       appState.router.routeMatched = matched.routeMatched;
@@ -108,10 +118,45 @@ export function createHeliosRouter<T extends RouterAppState>({
   //
   //
 
+  function loadForPush(url: string, query?: Record<string, string>) {
+    const urlObj = new URL(url, window.location.origin);
+
+    if (query) {
+      for (let key of Object.keys(query)) {
+        urlObj.searchParams.set(key, query[key]);
+      }
+    }
+
+    return load(urlObj);
+  }
+
+  //
+  //
+
+  async function pushState(url: string, query?: Record<string, string>) {
+    await loadForPush(url, query);
+
+    history.pushState({}, '', url);
+  }
+
+  //
+  //
+
+  async function replaceState(url: string, query?: Record<string, string>) {
+    await loadForPush(url, query);
+
+    history.replaceState({}, '', url);
+  }
+
+  //
+  //
+
   return {
-    routes,
-    appStateStore,
+    push: pushState,
+    replace: replaceState,
     load,
+    appStateStore,
+    routes,
     popState,
   };
 }
