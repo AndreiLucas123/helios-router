@@ -6,3 +6,5 @@ export {
 export { createOnEffect } from './createOnEffect';
 
 export { useSolidSubscribe } from './useSolidSubscribe';
+
+export { effectCleanup } from './effectCleanup';
