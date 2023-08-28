@@ -10,14 +10,14 @@ export const dollarFileMatchPattern: RouterMatchPattern = {
    * ```ts
    * path
    *  .replace(opts.relative!, '.')
-   *  .replace(/\.ts$/, '');
+   *  .replace(/\.tsx?$/, '');
    *```
    *
    * @example
    * from `src/app/home/home.page.ts` to `./home/home.page`
    */
   fixImportPath(opts: RoutesPluginOptions, path: string) {
-    return path.replace(opts.relative!, '.').replace(/\.ts$/, '');
+    return path.replace(opts.relative!, '.').replace(/\.tsx?$/, '');
   },
 
   /**

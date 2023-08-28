@@ -4,7 +4,7 @@
 export type RoutesPluginOptions = {
   /**
    * Diretório onde estão os arquivos de rotas.
-   * @default '/**\/*.page.ts'
+   * @default '/**\/*.page.(ts|tsx)'
    */
   pagesGlob?: string;
   /**

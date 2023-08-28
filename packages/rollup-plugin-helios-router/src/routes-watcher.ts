@@ -35,7 +35,7 @@ export default function routesWatcher(
 
   const opts = options || {};
   opts.routesFolder = opts.routesFolder?.replace(/\\/g, '/') || 'src/app';
-  opts.pagesGlob = opts.routesFolder + (opts.pagesGlob || '/**/*.page.ts');
+  opts.pagesGlob = opts.routesFolder + (opts.pagesGlob || '/**/*.page.(ts|tsx)');
   opts.baseUrl = opts.baseUrl || '/';
   opts.patternMatcher = opts.patternMatcher || dollarFileMatchPattern;
 
