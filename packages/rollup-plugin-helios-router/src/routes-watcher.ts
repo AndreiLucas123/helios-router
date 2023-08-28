@@ -1,5 +1,5 @@
 import type { RoutesPluginOptions } from './types';
-import { writeFile, readFile } from 'node:fs/promises';
+import { writeFile, readFile, stat } from 'node:fs/promises';
 import { relative } from 'node:path';
 import { dollarFileMatchPattern } from './dollarFileMatchPattern';
 import { sortRoutes } from './sortRoutes';
@@ -35,7 +35,8 @@ export default function routesWatcher(
 
   const opts = options || {};
   opts.routesFolder = opts.routesFolder?.replace(/\\/g, '/') || 'src/app';
-  opts.pagesGlob = opts.routesFolder + (opts.pagesGlob || '/**/*.page.(ts|tsx)');
+  opts.pagesGlob =
+    opts.routesFolder + (opts.pagesGlob || '/**/*.page.(ts|tsx)');
   opts.baseUrl = opts.baseUrl || '/';
   opts.patternMatcher = opts.patternMatcher || dollarFileMatchPattern;
 
@@ -88,10 +89,14 @@ export default function routesWatcher(
 
     const filePath = opts.routesFolder! + '/routes.ts';
 
-    const fileContent = await readFile(filePath, 'utf-8');
+    const statExis = await stat(filePath).catch(() => null);
 
-    if (fileContent === output) {
-      return;
+    if (statExis) {
+      const fileContent = await readFile(filePath, 'utf-8');
+
+      if (fileContent === output) {
+        return;
+      }
     }
 
     await writeFile(filePath, output, 'utf-8');
